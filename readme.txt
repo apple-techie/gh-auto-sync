@@ -1,15 +1,15 @@
-=== WP Git Sync ===
+=== GH Auto Sync ===
 Contributors: appletechie
 Donate link: https://github.com/sponsors/apple-techie
 Tags: git, github, sync, backup, version-control
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.2.1
+Stable tag: 2.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Automatically sync your WordPress site with GitHub. Works with or without Git installed - uses GitHub API as fallback.
+Automatically sync your WordPress site with GitHub. Works with or without Git installed - uses GitHub API as fallback. Formerly WP Git Sync.
 
 == Description ==
 
@@ -78,6 +78,9 @@ Yes! The plugin creates private repositories by default, and you can sync to any
 3. Repository initialization wizard
 
 == Changelog ==
+
+= 2.2.2 =
+* Renamed: Plugin renamed from "WP Git Sync" to "GH Auto Sync" for WordPress.org compliance
 
 = 2.2.1 =
 * Fixed: Background sync now properly uses base_tree for incremental updates

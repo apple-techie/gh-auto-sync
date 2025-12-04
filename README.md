@@ -1,4 +1,4 @@
-# WP Git Sync
+# GH Auto Sync
 
 A WordPress plugin that automatically synchronizes your WordPress site with a GitHub repository. **Works with or without Git installed** — uses GitHub's API as a fallback for managed/shared hosting.
 
