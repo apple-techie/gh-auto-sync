@@ -3,7 +3,7 @@
  * Plugin Name:       GH Auto Sync
  * Plugin URI:        https://github.com/apple-techie/wp-git-sync
  * Description:       Automatically sync your WordPress site with GitHub. Works with or without Git installed - uses GitHub API as fallback for managed hosting. Formerly WP Git Sync.
- * Version:           2.2.4
+ * Version:           2.2.2
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Apple Techie
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin version constant.
-define( 'WP_GIT_SYNC_VERSION', '2.2.4' );
+define( 'WP_GIT_SYNC_VERSION', '2.2.2' );
 
 // Background sync constants.
 define( 'WP_GIT_SYNC_BATCH_SIZE', 50 ); // Files per batch.
@@ -2215,11 +2215,6 @@ jQuery(document).ready(function($) {
             wp_send_json_error(['message' => 'No files found to sync.']);
         }
         
-        // Get commit message (sanitized here where nonce is verified)
-        $commit_message = isset($_POST['commit_message']) && !empty($_POST['commit_message']) 
-            ? sanitize_text_field(wp_unslash($_POST['commit_message'])) 
-            : 'Auto-sync from WordPress';
-        
         // Create job
         $job_id = 'sync_' . time() . '_' . wp_generate_password(8, false);
         $job = [
@@ -2235,7 +2230,6 @@ jQuery(document).ready(function($) {
             'tree_items' => [],
             'started_at' => time(),
             'message' => 'Starting sync...',
-            'commit_message' => $commit_message,
         ];
         
         // Store job data
@@ -2501,8 +2495,10 @@ jQuery(document).ready(function($) {
             return ['success' => false, 'message' => $job['error']];
         }
         
-        // Create commit (use message stored in job, already sanitized at start)
-        $message = !empty($job['commit_message']) ? $job['commit_message'] : 'Auto-sync from WordPress';
+        // Create commit
+        $message = isset($_POST['message']) && !empty($_POST['message']) 
+            ? sanitize_text_field($_POST['message']) 
+            : 'Auto-sync from WordPress';
             
         $commit_result = $this->create_commit_with_error($tree_result['sha'], $branch_sha ?: null, $message);
         if (!$commit_result['success']) {
